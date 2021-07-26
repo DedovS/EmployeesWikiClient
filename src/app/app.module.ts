@@ -14,6 +14,7 @@ import { MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonM
   MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule,
   MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule } 
   from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonM
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule, 
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

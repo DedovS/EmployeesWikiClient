@@ -1,6 +1,11 @@
 <p>wiki</p> 
 <div class="mat-elevation-z8" style="width: 100%;">
-
+  <div>
+    
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search" [ngModel]="pageParams.search" (ngModelChange)="changed($event)" />
+    
+  </div>
   <table mat-table matSort [dataSource]="wikiList" (matSortChange)="getList($event)" 
   style="width: 100%;" >
  
@@ -18,7 +23,7 @@
    
     <ng-container matColumnDef="articleType">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>articleType</th>
-      <td mat-cell *matCellDef="let element"> {{element.articleType}} </td>
+      <td mat-cell *matCellDef="let element"> {{(ArticleType[element.articleType])}} </td>
     </ng-container>
   
   

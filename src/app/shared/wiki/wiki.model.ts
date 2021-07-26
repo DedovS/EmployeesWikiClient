@@ -1,3 +1,5 @@
+import { ArticleType } from "../enum.model";
+
 export class Wiki {
     id: number;
     title: string;

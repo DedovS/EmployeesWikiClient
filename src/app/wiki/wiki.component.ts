@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, PageEvent } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material';
+import { ArticleType } from '../shared/enum.model';
 import { WikiPageParam } from '../shared/pageParam.model';
 import { Wiki, WikiPagination } from '../shared/wiki/wiki.model';
 import { WikiService } from '../shared/wiki/wikis.service';
@@ -11,45 +12,53 @@ import { WikiService } from '../shared/wiki/wikis.service';
 })
 export class WikiComponent implements OnInit {
 
+  public ArticleType = ArticleType; 
 
   wikiList: Wiki[] = [];
   displayedColumns: string[] = ['title', 'description', 'articleType', 'date'];
-   
+
   pageEvent: PageEvent;
   pageIndex: number;
   pageSize: number;
   length: number;
-  pageParams : WikiPageParam =  new WikiPageParam();
+  pageParams: WikiPageParam = new WikiPageParam();
 
+    
   constructor(public service: WikiService) {
-  }
    
+  }
+
   ngOnInit() {
     this.getWikis(new WikiPageParam());
   }
 
-  getList(event) { 
+  changed(text: string) {
+    this.pageParams.search = text;
+    this.getList(null);
+  }
 
-    console.log(event);
-     if(event.pageIndex || event.pageSize){
+  getList(event) {
 
-       this.pageParams.pageNumber = event.pageIndex;
-       this.pageParams.pageSize = event.pageSize;
-     }
+    if (event) {
+      if (event.pageIndex || event.pageSize) {
 
-     if(event.direction || event.active){
-      this.pageParams.orderColumn = event.active;
-      this.pageParams.orderDirection = event.direction;
-     }
+        this.pageParams.pageNumber = event.pageIndex;
+        this.pageParams.pageSize = event.pageSize;
+      }
 
+      if (event.direction || event.active) {
+        this.pageParams.orderColumn = event.active;
+        this.pageParams.orderDirection = event.direction;
+      }
+    }
     this.getWikis(this.pageParams);
   }
-  getWikis(pageParams : WikiPageParam){
+  getWikis(pageParams: WikiPageParam) {
 
     this.service.getList(pageParams)
       .subscribe((res: WikiPagination) => {
         this.wikiList = res.list;
-        this.length = res.totalCount; 
+        this.length = res.totalCount;
       });
   }
 
