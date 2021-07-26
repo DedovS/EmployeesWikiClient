@@ -1,3 +1,5 @@
+import { ArticleType } from "./enum.model";
+
 export class PageParam {
     pageNumber: number;
     pageSize: number;

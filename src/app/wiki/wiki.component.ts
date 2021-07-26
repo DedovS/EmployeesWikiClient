@@ -12,10 +12,10 @@ import { WikiService } from '../shared/wiki/wikis.service';
 })
 export class WikiComponent implements OnInit {
 
-  public ArticleType = ArticleType; 
+  public articleType = ArticleType; 
 
   wikiList: Wiki[] = [];
-  displayedColumns: string[] = ['title', 'description', 'articleType', 'date'];
+  displayedColumns: string[] = ['title', 'description', 'articleType', 'date', 'actions'];
 
   pageEvent: PageEvent;
   pageIndex: number;
@@ -23,9 +23,10 @@ export class WikiComponent implements OnInit {
   length: number;
   pageParams: WikiPageParam = new WikiPageParam();
 
-    
+  keys: any[];
+
   constructor(public service: WikiService) {
-   
+    this.keys = Object.keys(this.articleType).filter(k => !isNaN(Number(k))).map(Number);
   }
 
   ngOnInit() {
@@ -34,6 +35,12 @@ export class WikiComponent implements OnInit {
 
   changed(text: string) {
     this.pageParams.search = text;
+    this.getList(null);
+  }
+  
+  articleChanged(articleType: ArticleType) {
+   
+    this.pageParams.articleType = articleType;
     this.getList(null);
   }
 
