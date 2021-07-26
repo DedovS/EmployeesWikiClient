@@ -1,0 +1,8 @@
+.row-lefted{
+float: left;
+width: 100%;
+
+}
+textarea[cdktextareaautosize].mat-input-element {
+    box-sizing: content-box;
+}

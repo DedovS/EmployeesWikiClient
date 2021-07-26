@@ -15,11 +15,13 @@ import { MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonM
   MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule } 
   from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { DialogBoxComponent } from './wiki/dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WikiComponent
+    WikiComponent,
+    DialogBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,8 +63,9 @@ import { FormsModule } from '@angular/forms';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule, 
-    FormsModule
+    FormsModule 
   ],
+  entryComponents: [DialogBoxComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
