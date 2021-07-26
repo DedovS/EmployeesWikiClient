@@ -71,7 +71,7 @@ export class WikiComponent implements OnInit {
     });
   }
 
-  changed(text: string) {
+  searchChanged(text: string) {
     this.pageParams.search = text;
     this.getList(null);
   }
@@ -79,6 +79,12 @@ export class WikiComponent implements OnInit {
   articleChanged(articleType: ArticleType) {
    
     this.pageParams.articleType = articleType;
+    this.getList(null);
+  }
+
+  dateChanged(date: Date) {
+   
+    this.pageParams.date = date;
     this.getList(null);
   }
 
