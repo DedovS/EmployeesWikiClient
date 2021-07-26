@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from "@angular/common/http";
-import { Wiki } from './wiki.model';
+import { Wiki, WikiPagination } from './wiki.model';
 import { WikiPageParam } from '../pageParam.model';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -27,7 +27,7 @@ export class WikiService {
     getById(id: number) : Observable<Wiki>{
         return this.http.get<Wiki>(`${this._baseUrl}/${id}`);
     }
-    getList(param: WikiPageParam): Observable<Wiki[]> {
-        return this.http.post<Wiki[]>(`${this._baseUrl}/getList`, param);
+    getList(param: WikiPageParam): Observable<WikiPagination> {
+        return this.http.post<WikiPagination>(`${this._baseUrl}/getList`, param);
     }
 }

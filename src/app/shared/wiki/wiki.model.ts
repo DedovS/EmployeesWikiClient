@@ -12,4 +12,9 @@ export class Wiki {
       this.date = new Date();
       this.articleType = 0;
     } 
-  }
+}
+
+export class WikiPagination{
+   list : Wiki[];
+   totalCount : number;
+}

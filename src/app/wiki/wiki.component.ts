@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, PageEvent } from '@angular/material';
 import { WikiPageParam } from '../shared/pageParam.model';
-import { Wiki } from '../shared/wiki/wiki.model';
+import { Wiki, WikiPagination } from '../shared/wiki/wiki.model';
 import { WikiService } from '../shared/wiki/wikis.service';
 
 @Component({
@@ -10,22 +11,46 @@ import { WikiService } from '../shared/wiki/wikis.service';
 })
 export class WikiComponent implements OnInit {
 
-  wikiList : Wiki[] = [];
+
+  wikiList: Wiki[] = [];
   displayedColumns: string[] = ['title', 'description', 'articleType', 'date'];
+   
+  pageEvent: PageEvent;
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+  pageParams : WikiPageParam =  new WikiPageParam();
 
   constructor(public service: WikiService) {
-this.getList();
-   }
-
-   pageParams : WikiPageParam = new WikiPageParam();
-  
-   ngOnInit() {
-   
   }
-  getList(){
-    this.service.getList(this.pageParams).subscribe((res: Wiki[])=> {
-      this.wikiList = res;
-  });
+   
+  ngOnInit() {
+    this.getWikis(new WikiPageParam());
+  }
+
+  getList(event) { 
+
+    console.log(event);
+     if(event.pageIndex || event.pageSize){
+
+       this.pageParams.pageNumber = event.pageIndex;
+       this.pageParams.pageSize = event.pageSize;
+     }
+
+     if(event.direction || event.active){
+      this.pageParams.orderColumn = event.active;
+      this.pageParams.orderDirection = event.direction;
+     }
+
+    this.getWikis(this.pageParams);
+  }
+  getWikis(pageParams : WikiPageParam){
+
+    this.service.getList(pageParams)
+      .subscribe((res: WikiPagination) => {
+        this.wikiList = res.list;
+        this.length = res.totalCount; 
+      });
   }
 
 }

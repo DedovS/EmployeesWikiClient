@@ -6,7 +6,7 @@ export class PageParam {
     search: string;
 
     constructor() {
-        this.pageNumber = 1;
+        this.pageNumber = 0;
         this.pageSize = 10;
         this.orderColumn = "id";
         this.orderDirection = "asc";
@@ -19,7 +19,7 @@ export class WikiPageParam extends PageParam{
    
     constructor(){
         super()
-        this.date = new Date();
+        this.date = null;
         this.articleType = 0;
     }
 }
