@@ -1,5 +1,5 @@
 <div style="margin: 10px;">
-  <div style="margin-bottom: 10px;"> 
+  <div style="margin-bottom: 10px; background-color: #424242 !important;"> 
     <div style="float: left;">
       <mat-form-field appearance="fill">
         <mat-label style="color: black;">Search: </mat-label>
@@ -10,8 +10,9 @@
     <div style="float: left;">
       <mat-form-field appearance="fill">
         <mat-label style="color: black;">Articles: </mat-label>
-        <mat-select [(ngModel)]="pageParams.articleType" (ngModelChange)="articleChanged($event)">
-          <mat-option *ngFor="let key of keys" [value]="key"> {{articleType[key]}}
+        <mat-select [(ngModel)]="pageParams.articleType" (ngModelChange)="articleChanged($event)" 
+        >
+          <mat-option class="not-empty-select" *ngFor="let key of keys" [value]="key"> {{articleType[key]}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -22,7 +23,7 @@
     </div>
   </div>
 
-  <div class="mat-elevation-z8" style="width: 100%;">
+  <div >
     <table mat-table matSort [dataSource]="wikiList" (matSortChange)="getList($event)" style="width: 100%;">
 
       <ng-container matColumnDef="title">
