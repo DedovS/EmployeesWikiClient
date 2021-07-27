@@ -1,0 +1,17 @@
+  .mat-column-description  {
+    max-width: 100px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+ 
+  .mat-cell {
+    padding: 8px 8px 8px 8px;
+  } 
+  table{
+   width: 100%;
+  }
+  .to-left{
+    float: left; 
+    margin-right: 25px;
+  }

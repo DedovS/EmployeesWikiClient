@@ -1,0 +1,83 @@
+<div style="margin: 20px;">
+  <div > 
+    <div class="to-left">
+      <mat-form-field appearance="legacy">
+        <mat-label style="color: black;">Search: </mat-label>
+        <input matInput placeholder="Search" [ngModel]="pageParams.search" (ngModelChange)="searchChanged($event)" />
+      </mat-form-field>
+    </div>
+
+    <div class="to-left">
+      <mat-form-field appearance="legacy">
+        <mat-label style="color: black;">Articles: </mat-label>
+        <mat-select [(ngModel)]="pageParams.articleType" (ngModelChange)="articleChanged($event)" 
+        >
+          <mat-option *ngFor="let key of keys" [value]="key"> {{articleType[key]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="to-left">
+      <mat-form-field appearance="legacy">
+        <mat-label>Date from:</mat-label>
+        <input matInput [matDatepicker]="picker"
+         [(ngModel)]="pageParams.date" (ngModelChange)="dateChanged($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div style="float: right; margin-top: 10px;">
+      <button mat-button (click)="openDialog('Add',{})" mat-flat-button color="primary">Add</button>
+    </div>
+  </div>
+
+  <div >
+    <table class="mat-elevation-z8"
+     mat-table matSort [dataSource]="wikiList"
+      (matSortChange)="getList($event)" 
+      >
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="articleType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Article Type</th>
+        <td mat-cell *matCellDef="let element"> {{(articleType[element.articleType])}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd:MM:yyyy HH:mm'}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <a (click)="openDialog('Update',element)">Edit</a> |
+          <a (click)="openDialog('Delete',element)">Delete</a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator class="mat-elevation-z8" #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 50, 100]" (page)="getList($event)" [showFirstLastButtons]="true">
+    </mat-paginator>
+
+
+  </div>
+</div>
